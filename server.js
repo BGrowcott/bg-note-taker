@@ -42,7 +42,7 @@ app.post("/api/notes", (req, res) => {
   err
   ? console.error(err)
   : console.log(
-      `A new note has been added to the database`
+      `New note - ${req.body.title} - has been added to the database`
     )
   )
   res.send(req.body)
@@ -58,12 +58,17 @@ app.delete("/api/notes/:id", (req, res) => {
   err
   ? console.error(err)
   : console.log(
-      `A new note has been added to the database`
+      `Note has been deleted`
     )
   )
   res.send(id)
   readDatabase()
 })
+
+// all other routes return to the homepage
+app.get("*", (req, res) =>
+  res.sendFile(path.join(__dirname, "/public/index.html"))
+);
 
 app.listen(PORT, () =>
   console.log(`Serving static asset routes on port ${PORT}!`)
